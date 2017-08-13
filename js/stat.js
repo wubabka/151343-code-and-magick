@@ -1,6 +1,5 @@
-'use strict'
-
-window.renderStatistics = function(ctx, names, times) {
+'use strict';
+window.renderStatistics = function (ctx, names, times) {
 
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.strokeRect(110, 20, 420, 270);
@@ -34,5 +33,5 @@ window.renderStatistics = function(ctx, names, times) {
       'rgba(0, 0, 255,' + (Math.random() + 0.1).toFixed(1) + ')';
     ctx.fillRect(initialX + indent * i, initialY + barHeigth - times[i] * step, histogramWidth, times[i] * step);
     ctx.fillText(names[i], initialX + indent * i, initialY + barHeigth);
-  };
+  }
 };
