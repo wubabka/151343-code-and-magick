@@ -1,13 +1,11 @@
 'use strict';
 window.renderStatistics = function (ctx, names, times) {
 
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-  ctx.strokeRect(110, 20, 420, 270);
-  ctx.fillRect(110, 20, 420, 270);
+  var drawRectangle = function () {};
 
-  ctx.fillStyle = 'rgba(256, 256, 256, 1.0)';
-  ctx.strokeRect(100, 10, 420, 270);
-  ctx.fillRect(100, 10, 420, 270);
+  drawRectangle(ctx.fillStyle = 'rgba(0, 0, 0, 0.7)', ctx.strokeRect(110, 20, 420, 270), ctx.fillRect(110, 20, 420, 270));
+
+  drawRectangle(ctx.fillStyle = 'rgba(256, 256, 256, 1.0)', ctx.strokeRect(100, 10, 420, 270), ctx.fillRect(100, 10, 420, 270));
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
@@ -26,11 +24,15 @@ window.renderStatistics = function (ctx, names, times) {
 
   ctx.textBaseline = 'top';
 
-  for (var i = 0; i < times.length; i++) {
-    ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY - 20);
+  var randomColor = function () {
     ctx.fillStyle = names[i] === 'Вы' ?
       'rgba(255, 0, 0, 1)' :
       'rgba(0, 0, 255,' + (Math.random() + 0.1).toFixed(1) + ')';
+  };
+
+  for (var i = 0; i < times.length; i++) {
+    ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY - 20);
+    randomColor();
     ctx.fillRect(initialX + indent * i, initialY + barHeigth - times[i] * step, histogramWidth, times[i] * step);
     ctx.fillText(names[i], initialX + indent * i, initialY + barHeigth);
   }
