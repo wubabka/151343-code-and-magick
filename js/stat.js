@@ -1,11 +1,13 @@
 'use strict';
 window.renderStatistics = function (ctx, names, times) {
 
-  var drawRectangle = function () {};
+  var drawRectangle = function (x1, y1, x2, y2, fill) {
+    ctx.fillStyle = fill || '#000000';
+    ctx.fillRect(x1, y1, x2, y2);
+  };
 
-  drawRectangle(ctx.fillStyle = 'rgba(0, 0, 0, 0.7)', ctx.strokeRect(110, 20, 420, 270), ctx.fillRect(110, 20, 420, 270));
-
-  drawRectangle(ctx.fillStyle = 'rgba(256, 256, 256, 1.0)', ctx.strokeRect(100, 10, 420, 270), ctx.fillRect(100, 10, 420, 270));
+  drawRectangle(110, 20, 420, 270, 'rgba(0, 0, 0, 0.7)');
+  drawRectangle(100, 10, 420, 270, 'rgba(256, 256, 256, 1.0)');
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
