@@ -9,11 +9,14 @@ window.renderStatistics = function (ctx, names, times) {
   drawRectangle(110, 20, 420, 270, 'rgba(0, 0, 0, 0.7)');
   drawRectangle(100, 10, 420, 270, 'rgba(256, 256, 256, 1.0)');
 
-  ctx.fillStyle = '#000';
-  ctx.font = '16px PT Mono';
+  var drawText = function (fill, font, text, x1, y1) {
+    ctx.font = font;
+    ctx.fillStyle = fill || '#000000';
+    ctx.fillText(text, x1, y1);
+  };
 
-  ctx.fillText('Ура вы победили!', 220, 40);
-  ctx.fillText('Список результатов:', 220, 60);
+  drawText('#000000', '16px PT Mono', 'Ура вы победили!', 220, 40);
+  drawText('#000000', '16px PT Mono', 'Список результатов:', 210, 60);
 
   var barHeigth = 150;
   var histogramWidth = 40;
@@ -27,15 +30,20 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.textBaseline = 'top';
 
   var randomColor = function () {
-    ctx.fillStyle = names[i] === 'Вы' ?
-      'rgba(255, 0, 0, 1)' :
-      'rgba(0, 0, 255,' + (Math.random() + 0.1).toFixed(1) + ')';
+    ctx.fillStyle = 'rgba(0, 0, 255,' + (Math.random() + 0.1).toFixed(1) + ')';
+  };
+
+  var drawBar = function () {
+    ctx.fillRect(initialX + indent * i, initialY + barHeigth - times[i] * step, histogramWidth, times[i] * step);
   };
 
   for (var i = 0; i < times.length; i++) {
-    ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY - 20);
+    drawText('#000000', '16px PT Mono', times[i].toFixed(0), initialX + indent * i, initialY - 20);
     randomColor();
-    ctx.fillRect(initialX + indent * i, initialY + barHeigth - times[i] * step, histogramWidth, times[i] * step);
-    ctx.fillText(names[i], initialX + indent * i, initialY + barHeigth);
+    if (names[i] === 'Вы') {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    }
+    drawBar();
+    drawText('#000000', '16px PT Mono', names[i], initialX + indent * i, initialY + barHeigth);
   }
 };
