@@ -33,14 +33,9 @@ window.renderStatistics = function (ctx, names, times) {
     return 'rgba(0, 0, 255,' + (Math.random() + 0.1).toFixed(1) + ')';
   };
 
-  var drawBar = function () {
-    ctx.fillRect(initialX + indent * i, initialY + barHeigth - times[i] * step, histogramWidth, times[i] * step);
-  };
-
   for (var i = 0; i < times.length; i++) {
     drawText('#000000', '16px PT Mono', times[i].toFixed(0), initialX + indent * i, initialY - 20);
-    ctx.fillStyle = (names[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : randomColor();
-    drawBar();
+    drawRectangle(initialX + indent * i, initialY + barHeigth - times[i] * step, histogramWidth, times[i] * step, (names[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : randomColor());
     drawText('#000000', '16px PT Mono', names[i], initialX + indent * i, initialY + barHeigth);
   }
 };
