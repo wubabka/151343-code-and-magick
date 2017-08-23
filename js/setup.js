@@ -9,12 +9,74 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+
+var ESC_KEYCODE = 27;
+
+var ENTER_KEYCODE = 13;
+
 var wizards = [];
 
 var amountWizards = 4;
 
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+
+var wizardCoatChange = document.querySelector('.wizard-coat');
+var wizardEyesChange = document.querySelector('.wizard-eyes');
+var fireballChange = document.querySelector('.setup-fireball-wrap');
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+// -----> Рандомный цвет плаща по клику <-----
+wizardCoatChange.addEventListener('click', function () {
+  wizardCoatChange.style.fill = getRandomValue(COAT_COLORS);
+});
+
+// -----> Рандомный цвет глаз по клику <-----
+wizardEyesChange.addEventListener('click', function () {
+  wizardEyesChange.style.fill = getRandomValue(EYES_COLORS);
+});
+
+// -----> Рандомный цвет фаербола по клику <-----
+fireballChange.addEventListener('click', function () {
+  fireballChange.style.backgroundColor = getRandomValue(FIREBALL_COLORS);
+});
 
 var similarListElement = document.querySelector('.setup-similar-list');
 
@@ -66,4 +128,4 @@ var pasteWizards = function () {
 
 similarListElement.appendChild(pasteWizards());
 
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+setup.querySelector('.setup-similar').classList.remove('hidden');
