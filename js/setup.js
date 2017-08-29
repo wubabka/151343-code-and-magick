@@ -1,21 +1,6 @@
 'use strict';
 
 (function () {
-  // -----> Константы <-----
-  var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-
-  var WIZARD_LASTNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-
-  var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-
-  var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-
-  var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-
-  var ESC_KEYCODE = 27;
-
-  var ENTER_KEYCODE = 13;
-
   var wizards = [];
 
   var amountWizards = 4;
@@ -29,7 +14,7 @@
   var fireballChange = document.querySelector('.setup-fireball-wrap');
 
   var onPopupEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.keyCode === window.myConst.ESC_KEYCODE) {
       closePopup();
     }
   };
@@ -49,7 +34,7 @@
   });
 
   setupOpen.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.myConst.ENTER_KEYCODE) {
       openPopup();
     }
   });
@@ -59,7 +44,7 @@
   });
 
   setupClose.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.myConst.ENTER_KEYCODE) {
       closePopup();
     }
   });
@@ -93,37 +78,29 @@
 
   // -----> Рандомный цвет плаща по клику <-----
   wizardCoatChange.addEventListener('click', function () {
-    wizardCoatChange.style.fill = getRandomValue(COAT_COLORS);
+    wizardCoatChange.style.fill = window.util.getRandomValue(window.myConst.COAT_COLORS);
   });
 
   // -----> Рандомный цвет глаз по клику <-----
   wizardEyesChange.addEventListener('click', function () {
-    wizardEyesChange.style.fill = getRandomValue(EYES_COLORS);
+    wizardEyesChange.style.fill = window.util.getRandomValue(window.myConst.EYES_COLORS);
   });
 
   // -----> Рандомный цвет фаербола по клику <-----
   fireballChange.addEventListener('click', function () {
-    fireballChange.style.backgroundColor = getRandomValue(FIREBALL_COLORS);
+    fireballChange.style.backgroundColor = window.util.getRandomValue(window.myConst.FIREBALL_COLORS);
   });
 
   var similarListElement = document.querySelector('.setup-similar-list');
 
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
-  // -----> Получение рандомного индекса <-----
-  var getRandomInt = function (min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-  // -----> Получение рандомного значения <-----
-  var getRandomValue = function (array) {
-    return array[getRandomInt(0, array.length - 1)];
-  };
   // -----> Создание мага <-----
   var createWizard = function () {
     var wizard = {
-      name: getRandomValue(WIZARD_NAMES) + ' ' + getRandomValue(WIZARD_LASTNAMES),
-      coatColor: getRandomValue(COAT_COLORS),
-      eyesColor: getRandomValue(EYES_COLORS)
+      name: window.util.getRandomValue(window.myConst.WIZARD_NAMES) + ' ' + window.util.getRandomValue(window.myConst.WIZARD_LASTNAMES),
+      coatColor: window.util.getRandomValue(window.myConst.COAT_COLORS),
+      eyesColor: window.util.getRandomValue(window.myConst.EYES_COLORS)
     };
     return wizard;
   };
